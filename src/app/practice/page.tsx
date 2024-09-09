@@ -81,7 +81,7 @@ const Page = () => {
     const shuffledQuestions = shuffleArray(filteredQuestions);
     const selectedQuestions = shuffledQuestions.slice(0, 10);
     setQuestionList(selectedQuestions);
-  }, []);
+  }, [params]);
 
   useEffect(() => {
     if (answeredCurrentQuestion && !quizCompleted) {

@@ -1,95 +1,62 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+import { useState } from 'react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Logo } from '../components/logo';
+import { PracticeSection } from '../components/practice-section';
+import { PracticeOption } from '../components/practice-option';
+import Link from 'next/link';
 
-export default function Home() {
+const Page = () => {
+  const [query, setQuery] = useState<string[]>([]);
+
+  const handleQueryChange = (value: string) => {
+    if (query.includes(value)) {
+      setQuery(query.filter((item) => item !== value));
+    } else {
+      setQuery([...query, value]);
+    }
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <Box backgroundColor='#f1f1f1'>
+      <Flex minH='100vh' flexDirection='column' px={5} justifyContent='space-between' gap={10} maxW={500} margin='0 auto'>
+        <Flex flexDirection='column' gap={10}>
+          <Flex justifyContent='center' py={4}>
+            <Logo />
+          </Flex>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <Text fontSize='md'>Begin practicing by selecting from the options you&apos;d like to cover below</Text>
+
+          <PracticeSection heading='Basic Spelling'>
+            <PracticeOption prefix='あ' label='Hiragana' value='hiragana' onClick={handleQueryChange} />
+            <PracticeOption prefix='ア' label='Katakana' value='katakana' onClick={handleQueryChange} />
+          </PracticeSection>
+
+          <PracticeSection heading='Kanji'>
+            <PracticeOption prefix='漢字' label='Kanji' value='kanji' onClick={handleQueryChange} />
+          </PracticeSection>
+        </Flex>
+
+        <Button
+          as={Link}
+          href={{
+            pathname: '/practice',
+            query: { type: query.join(',') },
+          }}
+          colorScheme='green'
+          variant='solid'
+          h='75px'
+          w='100%'
+          fontWeight='bold'
+          alignSelf='flex-end'
+          fontSize='lg'
+          mb={5}
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+          Begin
+        </Button>
+      </Flex>
+    </Box>
+  )
 }
+
+export default Page;

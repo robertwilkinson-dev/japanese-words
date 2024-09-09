@@ -2,7 +2,7 @@
 import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
 import { Logo } from '../../components/logo';
 import { questions } from './questions';
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, Suspense, useEffect, useRef, useState } from 'react';
 import { RomajiAnswer, RomajiQuestion } from '@/types';
 import { checkRomajiQuestion } from '@/utils/check-romaji-question/check-romaji-question';
 import { useSearchParams } from 'next/navigation';
@@ -17,7 +17,7 @@ const shuffleArray = (array: RomajiQuestion[]) => {
   return array;
 };
 
-const Page = () => {
+const Content = () => {
   const params = useSearchParams();
 
   const [questionList, setQuestionList] = useState<RomajiQuestion[]>([]);
@@ -213,5 +213,11 @@ const Page = () => {
     </Box>
   )
 }
+
+const Page = () => (
+  <Suspense>
+    <Content />
+  </Suspense>
+);
 
 export default Page;

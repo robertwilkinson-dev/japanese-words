@@ -47,6 +47,7 @@ export const questions: RomajiQuestion[] = [
       ]
     ],
     type: 'hiragana',
+    meaning: 'Hello / Good afternoon',
   },
   {
     question: 'こんばんは',
@@ -195,9 +196,9 @@ export const questions: RomajiQuestion[] = [
         ['っ', 't'],
         ['て', 'te'],
         ['ら', 'ra'],
-        ['っ', 'ss'],
-        ['し', 'ha'],
-        ['ゃ', 'i'],
+        ['っ', 's'],
+        ['しゃ', 'sha'],
+        ['い', 'i'],
       ]
     ],
     type: 'hiragana',
